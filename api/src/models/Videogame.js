@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      primaryKey: true
+      primaryKey: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -25,11 +25,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,  
       allowNull: false,         
     },
-    Releas_eate: {
+    release_date: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    Rating: {
+    rating: {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
