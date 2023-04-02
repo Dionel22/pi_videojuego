@@ -15,17 +15,17 @@ module.exports = (sequelize) => {
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: false, 
      },
-    platforms: {
+     platforms: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
-    image: {
+    background_image: {
       type: DataTypes.STRING,  
       allowNull: false,         
     },
-    release_date: {
+    released: {
       type: DataTypes.DATE,
       allowNull: false,
     },
