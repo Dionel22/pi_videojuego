@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const  saveApiData = require("./src/controllers/getVideogames")
+const  saveApiData = require("./src/controllers/getAllVideogames")
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
