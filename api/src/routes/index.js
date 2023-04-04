@@ -1,6 +1,7 @@
 const { Router } = require('express');
 //const { Videogame, Genre } = require("../db")
 const routerVideogame = require("./allVideogame")
+const routerGenre = require("./allGenres")
 
 
 
@@ -14,5 +15,6 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 //--------GET------------
 router.use("/videogames", routerVideogame)
+router.use("/genres", routerGenre)
 
 module.exports = router;
