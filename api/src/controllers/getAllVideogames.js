@@ -7,27 +7,23 @@ const { API_KEY } = process.env;
 
 //--------todos--los-VideoGames--------
 const getAllVideogames = async () =>{
-  try {
-   let allVideogames = [];
-   for (let i = 1; i < 6; i++) {
+  let allVideogames = [];
+  for (let i = 1; i < 6; i++) {
   const respuest = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=${i}`)
-       let allPage = respuest.data.results.map(char => {
-           return{
-            id: char.id,
-            name: char.name,
-            platforms: char.platforms.map(e => e.platform.name),
-            background_image: char.background_image,
-            released: char.released,
-            genres: char.genres.map(e => e),
-            rating: char.rating
-            }
-       });
+    let allPage = respuest.data.results.map(char => {
+        return{
+          id: char.id,
+          name: char.name,
+          platforms: char.platforms.map(e => e.platform.name),
+          background_image: char.background_image,
+          released: char.released,
+          genres: char.genres.map(e => e),
+          rating: char.rating
+        }
+    });
        allVideogames = [...allVideogames, ...allPage]
    }
    return allVideogames;
-  } catch (error) {
-    return{mgs: error.message}
-  }
 }
 //------------------------
 
@@ -92,7 +88,5 @@ const createVideogame = async ( name, description, platforms, background_image, 
  await result.addGenre(genreDb);
  return result;
 }
-
-
 
 module.exports = {getAllVideogames, gameByIdApi, gameByIdDb, nameVideogameApi, createVideogame};
