@@ -1,2 +1,3 @@
 export const JUEGOS_POR_NOMBRE = "JUEGOS_POR_NOMBRE";
 export const TODOS_LOS_JUEGOS = "TODOS_LOS_JUEGOS";
+export const GENERO = "GENERO";

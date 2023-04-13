@@ -1,8 +1,9 @@
-import { JUEGOS_POR_NOMBRE, TODOS_LOS_JUEGOS } from "./type";
+import { JUEGOS_POR_NOMBRE, TODOS_LOS_JUEGOS, GENERO } from "./type";
 
 const inicialState = {
     allGames: [],
-    games: []
+    games: [],
+    genres: [],
 }
 
 const reducer = (state = inicialState, action) => {
@@ -13,12 +14,17 @@ const reducer = (state = inicialState, action) => {
             allgames: action.payload,
             games: action.payload
         }
-        case JUEGOS_POR_NOMBRE:   
-        console.log(action.payload)       
+        case JUEGOS_POR_NOMBRE:      
         return{
             ...state,
-            allgames: action.payload
+            allGames: action.payload
         }
+        case GENERO:
+            let filGenres = state.allGames?.filter((e )=> e.genres.includes(action.payload))
+            return{
+                ...state,
+                games: filGenres
+            }
         default:
          return{...state};
     }
