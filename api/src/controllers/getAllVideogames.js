@@ -4,12 +4,19 @@ const { Videogame, Genre } = require("../db")
 const { Op } = require("sequelize");
 const { API_KEY } = process.env;
 
+/*
+/videogames/name?="..."
+Esta ruta debe obtener los primeros 15 videojuegos que se encuentren con la palabra recibida por query.
+Debe poder buscarlo independientemente de mayúsculas o minúsculas.
+Si no existe el videojuego, debe mostrar un mensaje adecuado.
+Debe buscar tanto los de la API como los de la base de datos.
+*/
 
 //--------todos--los-VideoGames--------
-const getAllVideogames = async () =>{
+const getAllVideogamesApi = async () =>{
   let allVideogames = [];
-  for (let i = 1; i < 6; i++) {
-  const respuest = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=${i}`)
+  //for (let i = 1; i < 6; i++) {
+  const respuest = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
     let allPage = respuest.data.results.map(char => {
         return{
           id: char.id,
@@ -22,8 +29,20 @@ const getAllVideogames = async () =>{
         }
     });
        allVideogames = [...allVideogames, ...allPage]
-   }
+  // }
    return allVideogames;
+}
+
+
+const getAllVideogamesByBd = async ()=>{
+  let respuesta = await Videogame.findAll({include: Genre})
+  return respuesta
+}
+
+const getAllGames = async ()=>{
+  let resApi = await getAllVideogamesApi();
+  let resBd = await getAllVideogamesByBd();
+  return resApi.concat(resBd)
 }
 //------------------------
 
@@ -49,33 +68,6 @@ const gameByIdDb = async (id) => {
 }
 //-----------------
 
-/*
- GET | /videogames/name?="..."
-Esta ruta debe obtener los primeros 15 videojuegos que se encuentren con la palabra recibida por query.
-Debe poder buscarlo independientemente de mayúsculas o minúsculas.
-Si no existe el videojuego, debe mostrar un mensaje adecuado.
-Debe buscar tanto los de la API como los de la base de datos.
- */
-//-------get-name-------
-const nameVideogameApi = async (name) => {
-    let result1 = []
-      let resultApi = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
-      let respuestApi = resultApi.data.results.map(char => {
-        return{
-         id: char.id,
-         name: char.name,
-         platforms: char.platforms.map(e => e.platform.name),
-         background_image: char.background_image,
-         released: char.released,
-         genres: char.genres.map(e => e),
-         rating: char.rating
-         }
-       });
-       let resultDb = await Videogame.findAll({ where: { name:{[Op.iLike]: '%'+name+'%'}},include: Genre})
-    if(respuestApi.length < 1 && resultDb.length < 1) return `No se encuentra el juego con el nombre ${name}`
-      return result1 = [...result1, ...respuestApi,...resultDb];
-}
-
 
 //------post-------
 const createVideogame = async ( name, description, platforms, background_image, genre, released, rating) =>{
@@ -89,4 +81,4 @@ const createVideogame = async ( name, description, platforms, background_image, 
  return result;
 }
 
-module.exports = {getAllVideogames, gameByIdApi, gameByIdDb, nameVideogameApi, createVideogame};
+module.exports = {getAllGames , gameByIdApi, gameByIdDb, createVideogame};

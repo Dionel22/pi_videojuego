@@ -1,20 +1,17 @@
 const { Router } = require("express")
-const {getAllVideogames, gameByIdApi, gameByIdDb, nameVideogameApi,createVideogame} = require("../controllers/getAllVideogames")
+const {getAllGames, gameByIdApi, gameByIdDb,createVideogame} = require("../controllers/getAllVideogames")
 
 const routerVideogame = Router();
 
 //---------------get allVideogame-----------------
 routerVideogame.get("/", async (req, res) => {
-    console.log(req.query.name)
     try {
         const { name } =req.query;
+        let result = await getAllGames();
         if(name){
-        let resultName = await nameVideogameApi(name)
-        console.log(resultName)
-        res.status(200).json(resultName);
-        return
+          let resultName = result.filter(el => el.name.toLowerCase().includes(name.toLowerCase()));
+          return res.status(200).json(resultName);
         }
-        let result = await getAllVideogames();
         res.status(200).json(result)
     } catch (error) {
         res.status(400).json({msg: error.message});
