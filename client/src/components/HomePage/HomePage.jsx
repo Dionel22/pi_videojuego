@@ -1,22 +1,34 @@
 import style from "./HomePage.module.css";
-//import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
+import Paginado from "../Paginado/Paginado";
 import SearchBar from "../SearchBar/SearchBar"
 import Card from "../Card/Card"
 import { allGames, genre, order, ordenaPorNombre, orderByRating} from "../../redux/actions"
 
-export default function HomePage (props) {
+export default function HomePage () {
     const dispatch = useDispatch()
     const videoGames = useSelector((state)=>state.games)
-  
-   const handle = () => {
-    dispatch(allGames())
-   }
+    const [pagina, setPagina] = useState(1);
+    const [currentPagina, setCurrentPagina] = useState(15);
+    const nextPagina = pagina * currentPagina;
+    const lastPagina = nextPagina - currentPagina;
+    const currentGames = videoGames.slice(lastPagina,nextPagina)
 
-   const handleOptionGenres = (event) => {
-     const {value} = event.target;
-     dispatch(genre(value))
+    const paginas = (num) => {
+      setPagina(num)
+    }
+    
+  //aqui trae todas las cartas
+   useEffect(() => {
+    dispatch(allGames())
+  }, [dispatch]);
+  
+  
+  const handleOptionGenres = (event) => {
+    const {value} = event.target;
+    dispatch(genre(value))
    }
 
    const handleOptionOrigin = (event) => {
@@ -28,11 +40,13 @@ export default function HomePage (props) {
     event.preventDefault()
      const {value} = event.target;
      dispatch(ordenaPorNombre(value))
-   }
-   const handleOptionRating = (event) => {
-    event.preventDefault()
+     setPagina(1)
+    }
+    const handleOptionRating = (event) => {
+     event.preventDefault()
      const {value} = event.target;
      dispatch(orderByRating(value))
+     setPagina(1)
    }
     return(
         <div>
@@ -77,15 +91,11 @@ export default function HomePage (props) {
             <option value="Mejor">mejor calificación</option>
             <option value="Peor">peor calificación</option>
            </select>
-    
+           <Paginado currentPagina={currentPagina} videoGames={videoGames.length} paginas={paginas}/>
            <Link to="/detail" className={style.link}>
-           <Card  videoGames={videoGames}/>
+           <Card  currentGames={currentGames}/>
            </Link>
-           <button onClick={handle} >bienvenido</button>
+
         </div>
     )
 }
-
-/*
-Botones/Opciones para filtrar por género, y por si su origen es de la API o de la base de datos (creados por nosotros desde el formulario).
- */

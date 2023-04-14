@@ -1,10 +1,11 @@
 import style from "./Card.module.css";
 
 export default function Card (props) {
+ // console.log("card",props.currentGames)
   return(
     <div >
         <div className={style.div}>
-        {props.videoGames?.map((e)=> {
+        {props.currentGames?.map((e)=> {
           return(
             <div key={e.id} className={style.content}>
               <h3 className={style.color}>{e.name}</h3>
