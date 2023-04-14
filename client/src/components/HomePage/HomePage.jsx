@@ -4,26 +4,42 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import SearchBar from "../SearchBar/SearchBar"
 import Card from "../Card/Card"
-import { allGames, genre} from "../../redux/actions"
+import { allGames, genre, order, ordenaPorNombre, orderByRating} from "../../redux/actions"
 
 export default function HomePage (props) {
     const dispatch = useDispatch()
-    const videoGames = useSelector((state)=>state)
+    const videoGames = useSelector((state)=>state.games)
   
    const handle = () => {
     dispatch(allGames())
    }
 
-   const handleOption = (event) => {
+   const handleOptionGenres = (event) => {
      const {value} = event.target;
      dispatch(genre(value))
    }
 
+   const handleOptionOrigin = (event) => {
+    event.preventDefault()
+     const {value} = event.target;
+     dispatch(order(value))
+   }
+   const handleOptionName = (event) => {
+    event.preventDefault()
+     const {value} = event.target;
+     dispatch(ordenaPorNombre(value))
+   }
+   const handleOptionRating = (event) => {
+    event.preventDefault()
+     const {value} = event.target;
+     dispatch(orderByRating(value))
+   }
     return(
         <div>
            <SearchBar />
           { /*Botones/Opciones/Generos*/}
-          <select name="genero" onChange={handleOption} >
+          <select name="genero" onChange={handleOptionGenres} >
+            <option value="All">All</option>
             <option value="Action">Action</option>
             <option value="Indie">Indie</option>
             <option value="Adventure">Adventure</option>
@@ -45,15 +61,21 @@ export default function HomePage (props) {
             <option value="Card">Card</option>
           </select>
           { /*Botones/Opciones/Api o Bd*/}
-           <select name="" id="">
-            <option value="Origin">origin</option>
-            <option value="creado">creado</option>
+           <select name="Origen" onChange={handleOptionOrigin}>
+            <option value="All">All</option>
+            <option value="Origen">origin</option>
+            <option value="Creado">creado</option>
            </select>
            
            { /*Botones/Opciones/ A-Z/Z-A*/}
-           <select name="" id="">
-            <option value="A-Z">A-Z</option>
-            <option value="Z-A">Z-A</option>
+           <select name="OrdenarPorNombre" onChange={handleOptionName}>
+            <option value="ascendentemente">A-Z</option>
+            <option value="descendentemente">Z-A</option>
+           </select>
+           { /*Botones/Opciones/ Rating*/}
+           <select name="Rating" onChange={handleOptionRating}>
+            <option value="Mejor">mejor calificación</option>
+            <option value="Peor">peor calificación</option>
            </select>
     
            <Link to="/detail" className={style.link}>

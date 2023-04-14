@@ -4,7 +4,7 @@ export default function Card (props) {
   return(
     <div >
         <div className={style.div}>
-        {props.videoGames.allGames?.map((e)=> {
+        {props.videoGames?.map((e)=> {
           return(
             <div key={e.id} className={style.content}>
               <h3 className={style.color}>{e.name}</h3>
