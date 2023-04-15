@@ -1,16 +1,18 @@
 import './App.css';
 import  LandingPage  from './components/LandingPage/LandingPage';
-import  HomePage  from "./components/HomePage/HomePage"
-import {  Route} from "react-router-dom";
+import  HomePage  from "./components/HomePage/HomePage";
+import DetailPage from './components/DetailPage/DetailPage';
+import { Switch ,Route} from "react-router-dom";
 
 function App() {
 
   return (
     <div className="App">
-     
+     <Switch>
         <Route exact path='/' component={ LandingPage }/>
         <Route exact path="/home" component={ HomePage }/>
-     
+        <Route path="/home/:id" component={DetailPage} />
+     </Switch>
     </div>
   );
 }

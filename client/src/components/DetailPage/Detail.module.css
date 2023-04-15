@@ -1,0 +1,76 @@
+.content{
+    display: flex;
+    position: relative;
+    width: 900px;
+    height: 500px;
+    background: white;
+    border-radius: 30px;
+    margin-top: 10px;
+    left: 40px;
+}
+
+.imag{
+    display: flex;
+    position: absolute;
+    top: 70px;
+    width: 420px;
+    right: 450px;
+}
+
+.id{
+    display: flex;
+    position: relative;
+    top: 300px;
+    left: 40px;
+    font-size: 30px;
+}
+
+.name{
+   display: flex;
+   position: absolute;
+   left: 270px;
+}
+
+.decription{
+    display: flex;
+    position: absolute;
+    top: 70px;
+    font-size:10px;
+    left: 490px;
+    width: 350px;
+}
+
+.genre{
+    display: flex;
+    position: relative;
+    margin: 5px;
+    top: 400px;
+    font-size: 10px;
+   
+}
+.plata{
+    display: flex;
+    position: relative;
+    margin: 9px;
+    top: 450px;
+    font-size: 10px;
+}
+.fecha{
+    display: flex;
+    position: relative;
+    top: 350px;
+}
+
+.ratings{
+    display: flex;
+    position: relative;
+    top: 300px;
+}
+
+.boton{
+    display: flex;
+    position: relative;
+    top: 520px;
+    right: 400px;
+}
+

@@ -1,7 +1,7 @@
 .div{
     display: flex;
     position: relative;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     flex-wrap: wrap;
     margin-top: 40px;

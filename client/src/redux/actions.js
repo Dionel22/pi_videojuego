@@ -1,5 +1,5 @@
 import axios from "axios";
-import { JUEGOS_POR_NOMBRE, TODOS_LOS_JUEGOS, GENERO, ORDENAR, ORDENAR_POR_NOMBRE, ORDENAR_POR_RATING } from "./type";
+import { JUEGOS_POR_NOMBRE, TODOS_LOS_JUEGOS, GENERO, ORDENAR, ORDENAR_POR_NOMBRE, ORDENAR_POR_RATING, DETALLE } from "./type";
 
 //trae todo los juego
 export const allGames = () => {
@@ -80,4 +80,24 @@ export const orderByRating = (value)=>{
     type: ORDENAR_POR_RATING,
     payload: value,
   }
+}
+
+//detalle
+
+export const detalle = (id)=> {
+  if (id.length <= 5) {
+    
+    return async function(dispatch){
+      let result = await axios.get(`http://localhost:3001/videogames/${id}`)
+      return dispatch({
+        type: DETALLE,
+        payload: result.data,
+      })
+    }
+  }
+  return {
+    type: DETALLE,
+    payload: id,
+  }
+  
 }

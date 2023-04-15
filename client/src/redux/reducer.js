@@ -1,9 +1,9 @@
-import { JUEGOS_POR_NOMBRE, TODOS_LOS_JUEGOS, GENERO, ORDENAR, ORDENAR_POR_NOMBRE, ORDENAR_POR_RATING } from "./type";
+import { JUEGOS_POR_NOMBRE, TODOS_LOS_JUEGOS, GENERO, ORDENAR, ORDENAR_POR_NOMBRE, ORDENAR_POR_RATING, DETALLE } from "./type";
 
 const inicialState = {
     allGames: [],
     games: [],
-    genres: [],
+    detail: []
 }
 
 const reducer = (state = inicialState, action) => {
@@ -20,14 +20,14 @@ const reducer = (state = inicialState, action) => {
             games: action.payload
         }
         case GENERO:
-            console.log(action.payload)
+            //console.log(action.payload)
             let filGenres = action.payload === "All" ? state.allGames : state.allGames.filter(game => game.genres?.some(genre => genre.name === action.payload))
             return{
                 ...state,
                 games: filGenres
             }
         case ORDENAR:
-            console.log(action.payload)
+            //console.log(action.payload)
             let filOrigen = action.payload === "Creado"? state.allGames.filter((e)=> e.description): state.allGames.filter((e)=> !e.description)
             return{
                 ...state,
@@ -63,11 +63,17 @@ const reducer = (state = inicialState, action) => {
                   }
                 }
             )
-           // console.log(filRatings)
-           // console.log(state.games)
             return{
                 ...state,
                 games: filRatings
+            }
+        case DETALLE:
+           // console.log( action.payload)
+            let fildetalle = action.payload.length >= 6 ? state.allGames.filter((e)=> e.id ===  action.payload): [action.payload]
+           //  console.log(defi)
+            return{
+                ...state,
+              detail: fildetalle
             }
         default:
          return{...state};

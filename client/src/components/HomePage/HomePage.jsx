@@ -23,8 +23,7 @@ export default function HomePage () {
   //aqui trae todas las cartas
    useEffect(() => {
     dispatch(allGames())
-  }, [dispatch]);
-  
+  }, [dispatch]);  
   
   const handleOptionGenres = (event) => {
     const {value} = event.target;
@@ -36,18 +35,21 @@ export default function HomePage () {
      const {value} = event.target;
      dispatch(order(value))
    }
+
    const handleOptionName = (event) => {
     event.preventDefault()
      const {value} = event.target;
      dispatch(ordenaPorNombre(value))
      setPagina(1)
     }
+
     const handleOptionRating = (event) => {
      event.preventDefault()
      const {value} = event.target;
      dispatch(orderByRating(value))
      setPagina(1)
    }
+   
     return(
         <div>
            <SearchBar />
@@ -92,9 +94,18 @@ export default function HomePage () {
             <option value="Peor">peor calificación</option>
            </select>
            <Paginado currentPagina={currentPagina} videoGames={videoGames.length} paginas={paginas}/>
-           <Link to="/detail" className={style.link}>
-           <Card  currentGames={currentGames}/>
-           </Link>
+
+           <div className={style.div}>
+           {currentGames?.map((e)=>{
+            return(
+                <div key={e.id}>
+              <Link to={`/home/${e.id}`} className={style.link}>
+               <Card id={e.id} name={e.name} background_image={e.background_image} genres={e.genres}/>
+              </Link>
+               </div>
+
+              ) })}
+            </div>
 
         </div>
     )

@@ -6,7 +6,7 @@ export default function Paginado(props) {
     let array = [];
     for (let i = 0; i <= Math.ceil(props.videoGames/ props.currentPagina -1); i++) {
         array.push(i+1);
-        console.log(i)
+        //console.log(i)
     }
    
     const handlePag = (event) => {
