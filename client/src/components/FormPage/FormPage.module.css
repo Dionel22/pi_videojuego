@@ -1,0 +1,57 @@
+.div{
+    display: flex;
+    position: relative;
+    width: 700px;
+    height: 450px;
+    background: rgba(255, 255, 255, 0.805);
+    border-radius: 20px;
+    left: 150px;
+    margin-top: 10px;
+}
+
+.Labelname{
+    display: flex;
+    position: relative;
+    left: 270px;
+    margin: 2px;
+}
+.name{
+    display: flex;
+    position: relative;
+    left: 260px;
+    margin: 2px;
+    border-radius: 4px;
+}
+.Labeldescription{
+    display: flex;
+    position: relative;
+    left: 270px;
+    margin: 2px;
+}
+.description{
+    display: flex;
+    position: relative;
+    left: 260px;
+    margin: 2px;
+    border-radius: 4px;
+}
+.Labelfecha{
+    display: flex;
+    position: relative;
+    left: 220px;
+    margin: 2px;
+}
+.fecha{
+    display: flex;
+    position: relative;
+    left: 290px;
+    margin: 5px;
+    border-radius: 4px;
+}
+
+.boton{
+    display: flex;
+    position: relative;
+    left: 310px;
+    top: 10px;
+}

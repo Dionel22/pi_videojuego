@@ -19,6 +19,7 @@
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter:blur(3px);
     box-shadow: 3px 3px 3px 3px rgba(22, 22, 22, 0.3);
+    border: 2px solid white;
 }
 
 .image{

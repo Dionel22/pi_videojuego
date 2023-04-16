@@ -99,7 +99,7 @@ export default function HomePage () {
            {currentGames?.map((e)=>{
             return(
                 <div key={e.id}>
-              <Link to={`/home/${e.id}`} className={style.link}>
+              <Link to={`/detail/${e.id}`} className={style.link}>
                <Card id={e.id} name={e.name} background_image={e.background_image} genres={e.genres}/>
               </Link>
                </div>

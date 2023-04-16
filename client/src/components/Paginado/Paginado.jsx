@@ -18,7 +18,6 @@ export default function Paginado(props) {
 
     return(
         <div>
-            <h1>paginado</h1>
             <button >Prev</button>
             {array && array.map((e, i)=> <button key={i} onClick={handlePag} value={e}>{e}</button>)}
             <button >Next</button>
