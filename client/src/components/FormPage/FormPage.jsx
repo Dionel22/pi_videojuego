@@ -107,15 +107,32 @@ useEffect(()=>{
 
     const handleValidacion = ()=>{
     //    e.preventDefault()
-        if (error)  return false
-        return true
+    console.log("val")
+        
+        
         
     }
    // console.log("error",error)
    const handleSubmit = (e)=> {
     e.preventDefault()
+    console.log("err", error)
+    if (error)  {
+        return alert("te falta completar")
+    }
     dispatch(createGame(creando))
-   console.log(creando)
+   //console.log(creando)
+   alert("se a creado")
+   setCreando({
+    name: "",
+    description: "",
+    background_image: "",
+    genres: [],
+    platforms: [],
+    released: "",
+    rating: ""
+})
+    
+
    }
   // console.log("err",error)
 
