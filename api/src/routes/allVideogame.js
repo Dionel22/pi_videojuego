@@ -7,8 +7,9 @@ const routerVideogame = Router();
 routerVideogame.get("/", async (req, res) => {
     try {
         const { name } =req.query;
-        let result = await getAllGames();
+        const result = await getAllGames();
         if(name){
+         //   console.log("name", name)
           let resultName = result.filter(el => el.name.toLowerCase().includes(name.toLowerCase()));
           return res.status(200).json(resultName);
         }

@@ -1,22 +1,14 @@
 require("dotenv").config();
 const axios = require("axios");
 const { Videogame, Genre } = require("../db")
-const { Op } = require("sequelize");
 const { API_KEY } = process.env;
 
-/*
-/videogames/name?="..."
-Esta ruta debe obtener los primeros 15 videojuegos que se encuentren con la palabra recibida por query.
-Debe poder buscarlo independientemente de mayúsculas o minúsculas.
-Si no existe el videojuego, debe mostrar un mensaje adecuado.
-Debe buscar tanto los de la API como los de la base de datos.
-*/
 
 //--------todos--los-VideoGames--------
 const getAllVideogamesApi = async () =>{
   let allVideogames = [];
-  //for (let i = 1; i < 6; i++) {
-  const respuest = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
+  for (let i = 1; i < 6; i++) {
+  const respuest = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=${i}`)
     let allPage = respuest.data.results.map(char => {
         return{
           id: char.id,
@@ -29,7 +21,8 @@ const getAllVideogamesApi = async () =>{
         }
     });
        allVideogames = [...allVideogames, ...allPage]
-  // }
+  }
+ 
    return allVideogames;
 }
 
