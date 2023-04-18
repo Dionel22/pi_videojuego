@@ -1,33 +1,42 @@
 import style from "./FormPage.module.css";
-import { useDispatch } from "react-redux"
-import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useState, useEffect } from "react"
 import { createGame } from "../../redux/actions";
 import validacion from "./validaciones";
+import { getGenres } from "../../redux/actions";
 
 export default function FormPage (){
     const dispatch = useDispatch()
+    const allGenres = useSelector((state)=> state.genres)
     const [ creando, setCreando ] = useState({
         name: "",
         description: "",
         background_image: "",
         genres: [],
         platforms: [],
-        released: 0,
-        rating: 0
+        released: "",
+        rating: ""
     });
 
     const [error , setError] = useState({
         name: "",
         description: "",
         background_image: "",
-        genres: "",
-        platforms: "",
-        released: 0,
-        rating: 0
+        genres: [],
+        platforms: [],
+        released: "",
+        rating: ""
     })
 
-const handleName = (event) => {
-    console.log(event.target.value)
+    const Plataformas = ["PC", "iOS", "Android", "macOS", "PlayStation", "Xbox", "Nintendo", "Linux", "Apple", "Atari", "Genesis", "SEGA"];
+
+    useEffect(()=>{
+        dispatch(getGenres())
+    },[])
+
+  //validacion
+      const handleName = (event) => {
+    //console.log(event.target.value)
     const { name, value} = event.target
     setCreando({
         ...creando,
@@ -38,58 +47,81 @@ const handleName = (event) => {
         [name]: value
     }))
     }
-   /* 
-   
-    const handleDescription = (event) => {
-    console.log(event.target.value)
-    const { name, value} = event.target
+
+    
+    
+    //.----------------------
+    const evGen = (e)=>{
+        // console.log(e.target.value)
+   if (e) {
+       const {value} = e.target
+       let res = creando.genres?.filter(el => el !== value)
+       if (res.length !== creando.genres.length) {
+        return setCreando({
+            ...creando,
+            genres: res
+        })    
+    }
+          setCreando({
+              ...creando,
+              genres: [...creando.genres, value ]
+            })
+        }
+        setError(validacion({
+         ...creando,
+         genres: [...creando.genres]
+        }))
+        
+}
+
+const handlePla = (e)=>{
+// console.log(e.target.value)
+if (e) {
+ 
+    const {value} = e.target;
+   let res = creando.platforms?.filter(a => a !== value)
+    if (res.length !== creando.platforms.length) {
+     return setCreando({
+         ...creando,
+         platforms: res
+     })
+    }
     setCreando({
         ...creando,
-        [name]: value
+        platforms: [...creando.platforms, value]
     })
-    }
-    const handleRealease = (event) => {
-        console.log(event.target.value)
-        const { name, value} = event.target
-        setCreando({
-            ...creando,
-            [name]: value
-        })
-    }
-    const handlePlattaform = (event) => {
-        console.log(event.target.value)
-    }
-    const handleImagen = (event) => {
-        const { name, value} = event.target
-        console.log(value)
-        setCreando({
-            ...creando,
-            [name]: value
-        })
-    }
-    const handleRating = (event) => {
-        console.log(event.target.value)
-        const { name, value} = event.target
-        setCreando({
-            ...creando,
-            [name]: value
-        })
-    }
-    const handleGenre = (event) => {
-        console.log(event.target.value)
-        event.preventDefault()
-        setChec(!chec)
-    }*/
+    setError(validacion({
+        ...creando,
+        platforms: creando.platforms
+    }))
+}
+ //console.log("stateee",creando.platforms)
+}
+useEffect(()=>{
+    evGen()
+    handlePla()
+},[creando.genres, creando.platforms])
 
-    const handleClick = (e)=>{
-        e.preventDefault()
-        dispatch(createGame(creando))
+ 
+
+
+    const handleValidacion = ()=>{
+    //    e.preventDefault()
+        if (error)  return false
+        return true
+        
     }
-    console.log("error",error)
+   // console.log("error",error)
+   const handleSubmit = (e)=> {
+    e.preventDefault()
+    dispatch(createGame(creando))
+   console.log(creando)
+   }
+  // console.log("err",error)
 
     return(
         <div className={style.div}>
-            <form action="">
+            <form onSubmit={(e) => handleSubmit(e)}>
                 <label className={style.Labelname}>Introduce El Nombre</label>
                 <input className={style.name} type="text" name="name"  onChange={handleName} />
                 {error.name && <p>{ error.name}</p>}
@@ -99,27 +131,45 @@ const handleName = (event) => {
                 <p>{error.description && error.description}</p>
 
                 <label className={style.Labelfecha} >Introduce El Fecha de Lazamiento</label>
-                <input className={style.fecha} type="date" name="released" onChange={handleName} />
+                <input className={style.fecha} type="date" name="released" onChange={handleName} min="1950-01-01"
+                            max="2023-12-31"/>
                 <p>{error.released && error.released}</p>
 
                 <label className={style.Labeldescription} >Introduce  Plataformas</label>
+                {Plataformas.map((e, i)=>{
+                    return(
+                        <div key={i}>
+                            <input  type="checkbox" value={e} onChange={handlePla}/>
+                            <label name="platforms" >{e}</label>
+                        </div>
+                    )
+                })}
                 <input className={style.description} type="text" name="platforms" onChange={handleName} />
                 <p>{error.platforms && error.platforms}</p>
 
+
                 <label className={style.Labeldescription}>Introduce  Genero</label>
-                <input className={style.description} type="text" name="genres" onChange={handleName} />
-                
+                {allGenres?.map((e,i)=>{
+                  return ( <label key={i}>{e.name}
+                        <input  type="checkbox" value={e.name} onChange={evGen}/>
+                    </label>)
+                })}
+               {error.genres && <p>{error.genres}</p>}
+             
         
                 <label className={style.Labeldescription} >Introduce Una Imagen</label>
-                <input className={style.description} type="file" name="background_image" onChange={handleName} />
+                <input className={style.description} type="text" name="background_image" onChange={handleName} />
                 <p>{error.background_image && error.background_image}</p>
 
                 <label className={style.Labeldescription}>Introduce Rating</label>
                 <input className={style.description} type="number" name="rating" onChange={handleName} />
                 <p>{error.rating && error.rating}</p>
 
-                <button className={style.boton} onClick={handleClick}>Guardar</button>
+                <button className={style.boton} type="submit" disabled={handleValidacion}>Crear Juego</button>
             </form>
+        
+
+             
         </div>
     )
 }

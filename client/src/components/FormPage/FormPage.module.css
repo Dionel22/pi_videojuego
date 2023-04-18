@@ -8,6 +8,12 @@
     left: 150px;
     margin-top: 10px;
 }
+.ger{
+    display: flex;
+    position: relative;
+    top: 550px;
+    color: aliceblue;
+}
 
 .Labelname{
     display: flex;

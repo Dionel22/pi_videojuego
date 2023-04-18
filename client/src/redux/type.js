@@ -6,3 +6,4 @@ export const ORDENAR_POR_NOMBRE = "ORDENAR_POR_NOMBRE";
 export const ORDENAR_POR_RATING = "ORDENAR_POR_RATING";
 export const DETALLE = "DETALLE";
 export const CREATE = "CREATE";
+export const GENRES = "GENRES";

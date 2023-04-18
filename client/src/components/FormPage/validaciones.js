@@ -1,36 +1,35 @@
 
 function validacion(arg) {
    // console.log(arg)
-    const regexEmail = /[a-zA-Z0-9]+/
-    /*
-        genres: "",
-        platforms: "",
-        released: 0,
-        rating: 0
-    */
+    const regexName = /[a-zA-Z0-9]+/;
+    const regexUrl =  /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/i;
+    const regexDate = /^\d{4}-\d{2}-\d{2}$/;
+    var fechaLimite = new Date('2023-05-01');
+    console.log("ere",arg.released)
+
     let error = {}
-    if (!regexEmail.test(arg.name)) {
+    if (!regexName.test(arg.name)) {
        error.name = "no tiene que tener caracteres"
     }
     if (!arg.description) {
         error.description = "no ahi description porfavor cuentanos"
     }
-    if (!arg.background_image) {
+    if (!regexUrl.test(arg.background_image)) {
         error.background_image = "no ahi imagen"
     }
-    if (arg.genres.length === 0) {
+    if (arg.genres.length <= 0) {
         error.genres = "no ahi genero"
     }
-    if (!arg.platforms) {
+    if (arg.platforms.length <= 0) {
         error.platforms = "no ahi plataforma"
     }
-    if (!arg.released) {
+    if (!regexDate.test(arg.released)) {
         error.released = "no ahi fecha"
     }
-    if (arg.rating <= 0 || arg.rating > 5) {
+    if (arg.rating <= 0 || arg.rating >= 6) {
         error.rating = "no ahi rating"
     }
-    //console.log(error)
+  console.log("validacion",error)
     return error;
 }
 

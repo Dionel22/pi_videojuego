@@ -1,5 +1,5 @@
 import axios from "axios";
-import { JUEGOS_POR_NOMBRE, TODOS_LOS_JUEGOS, GENERO, ORDENAR, ORDENAR_POR_NOMBRE, ORDENAR_POR_RATING, DETALLE, CREATE } from "./type";
+import { JUEGOS_POR_NOMBRE, TODOS_LOS_JUEGOS, GENERO, ORDENAR, ORDENAR_POR_NOMBRE, ORDENAR_POR_RATING, DETALLE, CREATE, GENRES } from "./type";
 
 //trae todo los juego
 export const allGames = () => {
@@ -101,12 +101,32 @@ export const detalle = (id)=> {
 }
 
 export const createGame = (body)=>{
-  return async function(dispatch){
-    console.log("body",body)
-   let resultado = await axios.post(`http://localhost:3001/videogames/${body}`)
-    return dispatch({
+  return function(dispatch) {
+   return fetch('http://localhost:3001/videogames', body)
+      .then(response => response.json())
+      .then(data => {
+       // console.log("---<",data)
+        dispatch({type: CREATE, payload: data})
+      })
+      .catch(error=> console.log(error))
+  }
+
+  /*  console.log("body",body)
+   let resultado = await axios.post(`http://localhost:3001/videogames`, body)
+   console.log("has")
+    return {
       type: CREATE,
-      payload: resultado.data
+      payload: resultado
+    }
+  */
+} 
+
+export const getGenres = () =>{
+  return async function(dispatch){
+    let result = await axios.get(`http://localhost:3001/genres`)
+    return dispatch({
+      type: GENRES,
+      payload: result.data,
     })
   }
-} 
+}

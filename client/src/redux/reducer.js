@@ -1,8 +1,9 @@
-import { JUEGOS_POR_NOMBRE, TODOS_LOS_JUEGOS, GENERO, ORDENAR, ORDENAR_POR_NOMBRE, ORDENAR_POR_RATING, DETALLE } from "./type";
+import { JUEGOS_POR_NOMBRE, TODOS_LOS_JUEGOS, GENERO, ORDENAR, ORDENAR_POR_NOMBRE, ORDENAR_POR_RATING, DETALLE, GENRES, CREATE } from "./type";
 
 const inicialState = {
     allGames: [],
     games: [],
+    genres: [],
     detail: []
 }
 
@@ -74,6 +75,15 @@ const reducer = (state = inicialState, action) => {
             return{
                 ...state,
               detail: fildetalle
+            }
+        case GENRES:
+            return{
+                ...state,
+                genres: action.payload,
+            }
+        case CREATE:
+            return {
+                ...state
             }
         default:
          return{...state};
