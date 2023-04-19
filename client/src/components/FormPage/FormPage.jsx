@@ -115,8 +115,8 @@ useEffect(()=>{
    // console.log("error",error)
    const handleSubmit = (e)=> {
     e.preventDefault()
-    console.log("err", error)
-    if (error)  {
+   // console.log("err", error)
+    if (!creando.name || !creando.description || !creando.background_image || creando.genres.length <= 0 || creando.platforms.length <= 0 || !creando.released || !creando.rating)  {
         return alert("te falta completar")
     }
     dispatch(createGame(creando))
@@ -129,8 +129,8 @@ useEffect(()=>{
     genres: [],
     platforms: [],
     released: "",
-    rating: ""
-})
+    rating: "" 
+    })
     
 
    }
@@ -140,16 +140,18 @@ useEffect(()=>{
         <div className={style.div}>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <label className={style.Labelname}>Introduce El Nombre</label>
-                <input className={style.name} type="text" name="name"  onChange={handleName} />
+                <input className={style.name} type="text" name="name" value={creando.name} onChange={handleName} />
                 {error.name && <p>{ error.name}</p>}
 
                 <label className={style.Labeldescription} >Introduce El Descripcion</label>
-                <input className={style.description} type="text" name="description" onChange={handleName} />
+                <input className={style.description} type="text" name="description"
+                value={creando.description} onChange={handleName} />
                 <p>{error.description && error.description}</p>
 
                 <label className={style.Labelfecha} >Introduce El Fecha de Lazamiento</label>
-                <input className={style.fecha} type="date" name="released" onChange={handleName} min="1950-01-01"
-                            max="2023-12-31"/>
+                <input className={style.fecha} type="date" name="released" value={creando.released}
+                onChange={handleName} min="1950-01-01"
+                max="2023-12-31"/>
                 <p>{error.released && error.released}</p>
 
                 <label className={style.Labeldescription} >Introduce  Plataformas</label>
@@ -161,7 +163,6 @@ useEffect(()=>{
                         </div>
                     )
                 })}
-                <input className={style.description} type="text" name="platforms" onChange={handleName} />
                 <p>{error.platforms && error.platforms}</p>
 
 
@@ -175,14 +176,14 @@ useEffect(()=>{
              
         
                 <label className={style.Labeldescription} >Introduce Una Imagen</label>
-                <input className={style.description} type="text" name="background_image" onChange={handleName} />
+                <input className={style.description} type="text" name="background_image" value={creando.background_image} onChange={handleName} />
                 <p>{error.background_image && error.background_image}</p>
 
                 <label className={style.Labeldescription}>Introduce Rating</label>
-                <input className={style.description} type="number" name="rating" onChange={handleName} />
+                <input className={style.description} type="number" name="rating" value={creando.rating} onChange={handleName} />
                 <p>{error.rating && error.rating}</p>
 
-                <button className={style.boton} type="submit" disabled={handleValidacion}>Crear Juego</button>
+                <button className={style.boton} type="submit">Crear Juego</button>
             </form>
         
 

@@ -10,23 +10,19 @@ function validacion(arg) {
     let error = {}
     if (!regexName.test(arg.name)) {
        error.name = "no tiene que tener caracteres"
-       key: false
+
     }
     if (!arg.description) {
         error.description = "no ahi description porfavor cuentanos"
-        key: false
     }
     if (!regexUrl.test(arg.background_image)) {
         error.background_image = "no ahi imagen"
-        key: false
     }
     if (arg.genres.length <= 0) {
         error.genres = "no ahi genero"
-        key: false
     }
     if (arg.platforms.length <= 0) {
         error.platforms = "no ahi plataforma"
-        key: false
     }
     if (!regexDate.test(arg.released)) {
         error.released = "no ahi fecha"
