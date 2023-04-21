@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /*background-image: url("https://gotgame.com/wp-content/uploads/2015/08/videogames.gif");*/
+  background-image: url("https://as01.epimg.net/meristation/imagenes/2020/03/16/reportajes/1584376493_455501_1584428561_noticia_normal.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -19,3 +19,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/*https://as01.epimg.net/meristation/imagenes/2020/03/16/reportajes/1584376493_455501_1584428561_noticia_normal.jpg
+
+https://gotgame.com/wp-content/uploads/2015/08/videogames.gif*/

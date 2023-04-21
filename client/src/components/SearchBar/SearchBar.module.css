@@ -1,0 +1,13 @@
+.div{
+    display: flex;
+    position: relative;
+    border-radius: 5px;
+    right: 40px;
+}
+.input{
+    display: flex;
+    position: absolute;
+    border-radius: 5px;
+    left: 870px;
+    bottom: 20px;
+}

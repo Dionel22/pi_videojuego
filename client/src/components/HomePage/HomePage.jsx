@@ -52,7 +52,7 @@ export default function HomePage () {
    
     return(
         <div>
-           <SearchBar />
+          
           { /*Botones/Opciones/Generos*/}
           <select name="genero" onChange={handleOptionGenres} >
             <option value="All">All</option>

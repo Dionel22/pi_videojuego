@@ -9,26 +9,26 @@ function validacion(arg) {
 
     let error = {}
     if (!regexName.test(arg.name)) {
-       error.name = "no tiene que tener caracteres"
+       error.name = "se necesita nombre sin caracteres"
 
     }
     if (!arg.description) {
-        error.description = "no ahi description porfavor cuentanos"
+        error.description = "se necesita una description del juego"
     }
     if (!regexUrl.test(arg.background_image)) {
-        error.background_image = "no ahi imagen"
+        error.background_image = "se necesita la URL de una imagen valida"
     }
     if (arg.genres.length <= 0) {
-        error.genres = "no ahi genero"
+        error.genres = "se necesita al menos 1 genero"
     }
     if (arg.platforms.length <= 0) {
-        error.platforms = "no ahi plataforma"
+        error.platforms = "se necesita al menos una plataforma"
     }
     if (!regexDate.test(arg.released)) {
-        error.released = "no ahi fecha"
+        error.released = "se necesita una fecha de su lanzamiento"
     }
     if (arg.rating <= 0 || arg.rating >= 6) {
-        error.rating = "no ahi rating"
+        error.rating = "se necesita rating que no sobre pase de 5"
     }
   //console.log("validacion",error)
     return error;

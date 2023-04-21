@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { createGame } from "../../redux/actions";
 import validacion from "./validaciones";
 import { getGenres } from "../../redux/actions";
+import imageMario from "./imagen/Super-Mario-Game.png"
 
 export default function FormPage (){
     const dispatch = useDispatch()
@@ -49,7 +50,7 @@ export default function FormPage (){
     }
 
     
-    
+    //genres
     //.----------------------
     const evGen = (e)=>{
         // console.log(e.target.value)
@@ -77,41 +78,45 @@ export default function FormPage (){
 const handlePla = (e)=>{
 // console.log(e.target.value)
 if (e) {
- 
-    const {value} = e.target;
-   let res = creando.platforms?.filter(a => a !== value)
-    if (res.length !== creando.platforms.length) {
-     return setCreando({
-         ...creando,
-         platforms: res
-     })
-    }
+ //console.log("e", e.target.value)
+   const {value} = e.target;
+   //let res = creando.platforms?.filter(a => a !== value)
+    // if (res.length !== creando.platforms.length) {
+    //  return setCreando({
+    //      ...creando,
+    //      platforms: res
+    //  })
     setCreando({
         ...creando,
-        platforms: [...creando.platforms, value]
+        platforms:[...creando.platforms, value]
     })
     setError(validacion({
         ...creando,
-        platforms: creando.platforms
+        platforms:[...creando.platforms, value]
     }))
-}
+ }
+
+//}
  //console.log("stateee",creando.platforms)
 }
 useEffect(()=>{
     evGen()
     handlePla()
-},[creando.genres, creando.platforms])
+},[creando.genres,creando.platforms])
 
  
 
 
-    const handleValidacion = ()=>{
-    //    e.preventDefault()
-    console.log("val")
-        
-        
+    const handleDelete = (value)=>{
+   // e.preventDefault()
+    console.log("val", value)
+    setCreando({
+        ...creando,
+        platforms: creando.platforms.filter(el=> el !== value)
+       })
         
     }
+
    // console.log("error",error)
    const handleSubmit = (e)=> {
     e.preventDefault()
@@ -139,53 +144,79 @@ useEffect(()=>{
     return(
         <div className={style.div}>
             <form onSubmit={(e) => handleSubmit(e)}>
-                <label className={style.Labelname}>Introduce El Nombre</label>
+                <h1 className={style.titu}>CREATE VIDEOGAME</h1>
+                {/*NAME */}
+              {/*  <img className={style.imagenMario} src={imageMario} alt="mario" />*/}
                 <input className={style.name} type="text" name="name" value={creando.name} onChange={handleName} />
-                {error.name && <p>{ error.name}</p>}
+                <label className={style.Labelname}>NAME</label>
+                {error.name && <p className={style.pName}>{ error.name}</p>}
 
-                <label className={style.Labeldescription} >Introduce El Descripcion</label>
+                <br />
+                {/*DESCRIPTION */}
                 <input className={style.description} type="text" name="description"
                 value={creando.description} onChange={handleName} />
-                <p>{error.description && error.description}</p>
+                <label className={style.Labeldescription} >DESCRIPTION</label>
+                {error.description && <p className={style.pdescription}>{ error.description}</p>}
+                 <br />
 
-                <label className={style.Labelfecha} >Introduce El Fecha de Lazamiento</label>
+                 {/*RELEASED */}
                 <input className={style.fecha} type="date" name="released" value={creando.released}
-                onChange={handleName} min="1950-01-01"
+                onChange={handleName} 
+                min="1950-01-01"
                 max="2023-12-31"/>
-                <p>{error.released && error.released}</p>
+                <label className={style.Labelfecha} >RELEASED</label>
+               {error.released && <p className={style.pfecha}>{ error.released}</p>}
+               <br />
 
-                <label className={style.Labeldescription} >Introduce  Plataformas</label>
+                {/*BACKGROUND_IMAGEN */}
+                <input className={style.imagen} type="text" name="background_image" value={creando.background_image} onChange={handleName} />
+                <label className={style.Labelimagen} >Introduce Una Imagen</label>
+               {error.background_image && <p className={style.pimagen}>{ error.background_image}</p>}
+                <br />
+
+                {/*RATING */}
+                <input className={style.rating} type="number" name="rating" value={creando.rating} onChange={handleName} />
+                <label className={style.Labelrating}>RATING</label>
+                {error.rating && <p className={style.prating}>{ error.rating}</p>}
+                <br />
+
+                {/*PLATFOMS */}
+                <label className={style.LabelPlatforms} >PLATFORMS</label>
+                <select className={style.platform} onChange={handlePla}>
                 {Plataformas.map((e, i)=>{
                     return(
-                        <div key={i}>
-                            <input  type="checkbox" value={e} onChange={handlePla}/>
-                            <label name="platforms" >{e}</label>
-                        </div>
+                       <option key={i} value={e}>{e}</option>
                     )
                 })}
-                <p>{error.platforms && error.platforms}</p>
+                </select>
+
+               {error.platforms && <p className={style.pplatform}>{ error.platforms}</p>}
 
 
-                <label className={style.Labeldescription}>Introduce  Genero</label>
+             {/*<label className={style.genre}>GENRES</label>
                 {allGenres?.map((e,i)=>{
-                  return ( <label key={i}>{e.name}
-                        <input  type="checkbox" value={e.name} onChange={evGen}/>
-                    </label>)
+                  return ( <label className={style.divPlatform} key={i}>{e.name}
+                             <input  type="checkbox" value={e.name} onChange={evGen}/>
+                            </label>)
+                })}*/}
+                <label className={style.genre}>GENRES</label>
+                <select className={style.divPlatform}>
+                {allGenres?.map((e,i)=>{
+                  return <option  key={i} value={e.name}>{e.name}</option>
                 })}
-               {error.genres && <p>{error.genres}</p>}
-             
+                </select>
+               {error.genres && <p className={style.pgenre}>{error.genres}</p>}
         
-                <label className={style.Labeldescription} >Introduce Una Imagen</label>
-                <input className={style.description} type="text" name="background_image" value={creando.background_image} onChange={handleName} />
-                <p>{error.background_image && error.background_image}</p>
-
-                <label className={style.Labeldescription}>Introduce Rating</label>
-                <input className={style.description} type="number" name="rating" value={creando.rating} onChange={handleName} />
-                <p>{error.rating && error.rating}</p>
+           
 
                 <button className={style.boton} type="submit">Crear Juego</button>
             </form>
-        
+        {/*PLATFORMS */}
+     
+        {creando.platforms?.map((e,i)=>{
+            return <button key={i} className={style.botonPlatform} onClick={()=>handleDelete(e)}>{e}</button>
+        })}
+       
 
              
         </div>
